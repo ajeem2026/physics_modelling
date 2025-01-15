@@ -1,3 +1,9 @@
+"""
+@author Abid Jeem, Jonathan Carranza Cortes, ChatGPT
+
+"""
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 
