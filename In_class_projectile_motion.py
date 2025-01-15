@@ -1,61 +1,93 @@
 """
+
 @author Abid Jeem, Jonathan Carranza Cortes, ChatGPT
-Assumptions
+
+Assumptions with initial model:
+
 - Gravity is constant
 - No air resistance
 - Idealized launch meaning it launches exactly at 45 degrees
 - Ground is perfectly flat
+
+@scenario Lionel Messi kicks a football
+Description:
+
+- Messi kicks a standard football with initial velocity.
+- Models realistic projectile motion, considering air resistance, wind, and launch height.
+- Assumptions include constant gravity, no spin effects, and flat ground.
+
+Constants:
+
+- Gravity: 9.8 m/s^2
+- Football mass: 0.43 kg (standard FIFA football)
+- Football diameter: 22 cm, cross-sectional area derived from this
+
 """
 
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Constants
-g = 9.8  # gravity in m/s^2
-v0 = 20  # initial velocity in m/s
-angle = 45  # launch angle in degrees
-h = 5  # launch height in meters
-rho = 1.225  # air density in kg/m^3
-C_d = 0.47  # drag coefficient (sphere)
-A = 0.01  # cross-sectional area in m^2
-m = 0.1  # mass in kg
-wind_speed = 5  # wind speed in m/s (horizontal)
+# Constants specific to Messi's kick and football
+g = 9.8  # Gravity (m/s^2)
+v0 = 30  # Estimated initial velocity from Messi's kick (m/s)
+angle = 45  # Launch angle (degrees)
+h = 3.5  # Approximate height of Messi's foot during kick (m)
+rho = 1.225  # Air density at sea level (kg/m^3)
+C_d = 0.2  # Approximate drag coefficient for a spinning football
+d = 0.22  # Diameter of the football (m)
+A = np.pi * (d / 2)**2  # Cross-sectional area of the football (m^2)
+m = 0.43  # Mass of the football (kg)
+wind_speed = 20  # Horizontal wind speed (m/s)
 
-# Drag constant
-k = 0.5 * rho * C_d * A  
+# Drag constant calculation
+k = 0.5 * rho * C_d * A  # Drag factor based on velocity
 
-# Time step
-dt = 0.01  
+# Time step for simulation (small value for precision)
+dt = 0.01
 
-# Function for simulation with realistic factors
+# Function for simulating Messi's kick
 def simulate_projectile(v0, angle, h, air_resistance=True, wind_speed=0):
+    """
+    Simulates the motion of a football kicked by Messi, considering air resistance, wind, and launch height.
+    
+    Parameters:
+    - v0: Initial velocity (m/s)
+    - angle: Launch angle (degrees)
+    - h: Initial launch height (m)
+    - air_resistance: Whether to include air resistance (True/False)
+    - wind_speed: Horizontal wind speed (m/s)
+    
+    Returns:
+    - x, y: Arrays of horizontal and vertical positions
+    """
     theta = np.radians(angle)  # Convert angle to radians
     vx = v0 * np.cos(theta)  # Initial horizontal velocity
     vy = v0 * np.sin(theta)  # Initial vertical velocity
 
-    x, y = [0], [h]  # Initial positions
-    vx_current, vy_current = vx + wind_speed, vy  # Include wind in initial velocity
-    time = [0]
+    x, y = [0], [h]  # Initialize position arrays
+    vx_current, vy_current = vx + wind_speed, vy  # Adjust initial velocity for wind
+    time = [0]  # Time tracker
 
-    while y[-1] >= 0:  # Simulate until projectile hits the ground
-        v = np.sqrt(vx_current**2 + vy_current**2)
-        
-        # Compute accelerations
+    # Loop until the football hits the ground (y <= 0)
+    while y[-1] >= 0:
+        v = np.sqrt(vx_current**2 + vy_current**2)  # Speed magnitude
+
+        # Calculate accelerations due to air resistance and gravity
         if air_resistance:
-            ax = -k * vx_current * v / m
-            ay = -g - (k * vy_current * v / m)
+            ax = -k * vx_current * v / m  # Horizontal drag
+            ay = -g - (k * vy_current * v / m)  # Vertical drag and gravity
         else:
-            ax, ay = 0, -g
-        
-        # Update velocities
+            ax, ay = 0, -g  # No air resistance case
+
+        # Update velocities using calculated accelerations
         vx_current += ax * dt
         vy_current += ay * dt
 
-        # Update positions
+        # Update positions using updated velocities
         x.append(x[-1] + vx_current * dt)
         y.append(y[-1] + vy_current * dt)
         time.append(time[-1] + dt)
-    
+
     return np.array(x), np.array(y)
 
 # Simulations
@@ -65,9 +97,9 @@ x_with_resistance, y_with_resistance = simulate_projectile(v0, angle, h, air_res
 # Plotting
 fig, axs = plt.subplots(1, 2, figsize=(16, 8))
 
-# Plot 1: No Air Resistance
+# Plot 1: Idealized motion (No Air Resistance)
 axs[0].plot(x_no_resistance, y_no_resistance, label="No Air Resistance", color="blue")
-axs[0].set_title("Idealized Projectile Motion", fontsize=14)
+axs[0].set_title("Idealized Football Kick", fontsize=14)
 axs[0].set_xlabel("Horizontal Distance (m)", fontsize=12)
 axs[0].set_ylabel("Vertical Distance (m)", fontsize=12)
 axs[0].grid(True)
@@ -87,9 +119,9 @@ axs[0].annotate(
     fontsize=10,
 )
 
-# Plot 2: With Air Resistance and Wind
+# Plot 2: Realistic motion (With Air Resistance and Wind)
 axs[1].plot(x_with_resistance, y_with_resistance, label="With Air Resistance + Launch Height + Wind", color="orange")
-axs[1].set_title("Realistic Projectile Motion", fontsize=14)
+axs[1].set_title("Realistic Football Kick", fontsize=14)
 axs[1].set_xlabel("Horizontal Distance (m)", fontsize=12)
 axs[1].set_ylabel("Vertical Distance (m)", fontsize=12)
 axs[1].grid(True)
@@ -110,6 +142,6 @@ axs[1].annotate(
 )
 
 # Title for the entire figure
-fig.suptitle("Comparison of Projectile Motion: Idealized vs Realistic", fontsize=16)
+fig.suptitle("Comparison of Messi's Football Kick: Idealized vs Realistic", fontsize=16)
 plt.tight_layout(rect=[0, 0, 1, 0.95])
 plt.show()
