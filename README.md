@@ -1,1 +1,3 @@
-# physics_modelling
+# PHYS 265 - Modeling and Simulation of Physical Systems
+
+An introduction to the innovative field of modeling and analysis of complex physical systems from such diverse fields as physics, chemistry, ecology, epidemiology, and a wide range of interdisciplinary, emerging fields such as econophysics and sociophysics. Topics vary according to faculty expertise and student interest. The goal is to seek the underlying physics laws that govern such seemingly diverse systems and to provide contemporary mathematical and computational tools for studying and simulating their dynamics
