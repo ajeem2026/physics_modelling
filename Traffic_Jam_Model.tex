@@ -1,0 +1,69 @@
+\documentclass[10pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{setspace}
+\geometry{a4paper, margin=1in}
+
+\setstretch{1}
+
+\begin{document}
+
+\title{Challenge 2: The Traffic Jam Puzzle}
+\author{Leo Avigliano, Abid Jeem, Brayton Johnson, Drake Perrin}
+\date{}
+\maketitle
+
+\section*{Introduction}
+This challenge presented us with the task of recreating a scenario in which a stretch of highway has traffic flowing at a steady rate but now experiences a sudden slow down. This is an interesting model to consider because highway driving is something that most people experience with a relatively high frequency, therefore an effective simulation of this scenario would prove useful for many people. According to the U.S. department of Transportation, the average driver spends 55 minutes a day behind the wheel. Granted, not all that time is spent on the highway, but this figure represents the frequency with which people are on the road, thus displaying the relevance and importance of this system. Of course, human nature is somewhat impossible to predict, yet average driver behavior is something that is more quantifiable. Simplifying and modeling these behaviors within this system through physical and mathematical relationships is our ultimate goal.  
+
+\section*{Key Features of the System}
+Naturally, the key entities within our system are cars on the highway. We assumed that each car was initially travelling at identical, constant velocities and they are point-like particles, which is a simplification that makes the system easier to represent mathematically. Due to this assumption, there are essentially no interactions between the cars before the “slowing down” event. We also must consider the lanes on the highway, and the lane the incident occurs in as key entities. The interaction between the lane of incidence and the number of lanes on the highway can influence the slowdown effects and how they propagate through each lane of traffic.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{fig1 2.png}
+    \caption{Our in-class diagram of traffic flow and shockwave dynamics on a three-lane highway}
+    \label{fig:traffic_model}
+\end{figure}
+
+
+
+\section*{Mathematical Representation}
+In our three-lane highway model, the accident occurs in the \textit{leftmost} lane, leading to a traffic slowdown that propagates backward (\textit{domino effect}) and affects adjacent lanes (\textit{ripple effect}). Our variables:
+\begin{itemize}
+    \item \( v_i \): Velocity of car \( C_i \) (m/s), where \( v_0 = 0 \) due to the accident.
+    \item \( a_i \): Deceleration of car \( C_i \) (m/s$^2$), where \( a_1 = a_{\text{max}} \), the maximum deceleration rate.
+    \item \( d_i \): Distance between \( C_i \) and \( C_{i-1} \) (m).
+    \item \( t \): Elapsed time since the accident (s).
+\end{itemize}
+
+\noindent The parameters used in this model include \(a_{\text{max}}\), which represents the maximum deceleration rate (e.g., \(-7.8 \ \text{m/s}^2\)); \(t_{\text{reaction}}\), which denotes the driver reaction time (e.g., 0.75 seconds); and \(\rho\), the car density measured in cars per meter.
+
+The interactions in the system are summarized as follows:
+\begin{itemize}
+    \item \textbf{Deceleration in accident lane:} Cars decelerate based on reaction time and distance to the car ahead:
+    \[
+    v_i(t) = v_{i-1}(t - t_{\text{reaction}}) - a_i \cdot (t - t_{\text{reaction}})
+    \]
+    \item \textbf{Ripple Effect:} Lane-changing behavior causes deceleration in adjacent lanes:
+    \[
+    v_{j,k}(t) = v_{j,k}(t - \Delta t) - g(\rho, t_{\text{reaction}})
+    \]
+    \item \textbf{Shockwave:} The shockwave propagates backward at a velocity:
+    \[
+    v_{\text{shockwave}} = \frac{-\Delta v}{\Delta t}
+    \]
+\end{itemize}
+
+\section*{Analysis Plan}
+In order to explore our model’s behavior, we set up an experiment using a three-lane highway and how an accident in the left lane would affect the speed of traffic for all cars behind it. We expect to see the buildup in the left lane that will slow driver speed in a sort of traffic shockwave starting at the point of accident, with cars getting slower and slower as they reach the point. We expect to learn the rate of deceleration as stated before, and even how quickly car speed would recover back to normal after the accident.   
+
+A few limitations of our model are that this is a drastic oversimplification of driving behaviors among people. Many people may drive at differing speeds, some more erratic than others, and not taking these into account limits our model’s use. Another limitation is our sole focus on the left lane, it would be of greater use if we accounted for the random early lane changes, or even emergency vehicles trying to get through to the point of the accident which would cause an increase or decrease in lane changes. Whether it is a full lane blockage or just a partial blockage would also affect our data.  
+
+\section*{Conclusion}
+In all, our model takes into account numerous variables, such as car density, lane of incident, and velocities, to model the way traffic propagates through the highway. Although there are many possibilities to model this situation, we chose to focus on the area right behind the incident. In the future we could additionally model other situations where traffic slowdown may occur but not have total lane blockage which would likely be modeled as a shockwave. Other additions would be to include the effect on other lanes of this traffic slowdown. In this case we could also consider the driver's decision quickness and how changing lanes with a bit of randomness may affect the flow. 
+
+\end{document}
