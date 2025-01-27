@@ -1,3 +1,5 @@
+"""This is a test"""
+
 import tkinter as tk
 from tkinter import messagebox, PhotoImage
 import numpy as np
