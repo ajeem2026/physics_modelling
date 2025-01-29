@@ -1,0 +1,308 @@
+\documentclass {article}
+\usepackage{amsmath, amssymb, graphicx, geometry}
+
+% GEOMETERY
+% sets paper size, margins and a parameter 
+\geometry{top=1.5in, bottom=1.5in, left=1.5in, right=1.5in}
+
+\usepackage{floatrow}
+
+
+
+
+%Background
+\usepackage{background}
+\backgroundsetup{
+ scale=1,
+ color=black,
+ opacity=10,
+ angle=0,
+ contents={
+  \includegraphics[width=\paperwidth,height=\paperheight]{brand.pdf}
+ }
+}
+%Line Height 
+\renewcommand{\baselinestretch}{1.5} %Line spacing
+
+%Par Skip and parindent
+\setlength{\parindent}{0pt}
+\setlength{\parskip} {1.2em}
+\usetikzlibrary{arrows}
+\title{Computational Worksheet: Exploring Oscillations}
+\author{\textbf{Name:} \textit{Abid Jeem}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Worksheet Overview}
+\textbf{Goal:} Develop intuition and computational skills by modeling simple, damped, and driven damped oscillators using Python.
+
+\textbf{Topics:}
+\begin{itemize}
+    \item Simple Harmonic Oscillator (SHO)
+    \item Damped Oscillator
+    \item Driven Damped Oscillator
+\end{itemize}
+
+\textbf{Please feel free to change the Python codes provided on Canvas  and the Worksheet Latex template to accommodate your analysis. Include all the relevant  plots in this worksheet. }\\
+
+\textbf{To Submit to Canvas:} Completed worksheet with answers and plots.
+
+\section*{Part 1: Simple Harmonic Oscillator (SHO)}
+\subsection*{Theory}
+The motion of a simple harmonic oscillator is governed by the equation:
+\[ m \frac{d^2x}{dt^2} + kx = 0 \]
+
+\subsection*{Questions}
+\begin{enumerate}
+    \item Write the equation in terms of two first-order differential equations. Show your work below:
+    \[
+\text{Equations:}
+\]
+
+\begin{equation}
+v = \frac{dx}{dt}
+\end{equation}
+
+\begin{equation}
+\frac{dv}{dt} = \frac{d^2 x}{dt^2}
+\end{equation}
+
+\[
+\text{Hence, the second-order ODE becomes a system of two coupled first-order ODEs:}
+\]
+
+\begin{equation*}
+\begin{aligned}
+\text{Our coupled ODEs}
+\begin{cases}
+\dfrac{dx}{dt} = v,\\[6pt]
+\dfrac{dv}{dt} = -\dfrac{k}{m}\, x
+\end{cases}
+\end{aligned}
+\end{equation*}
+
+    \item What is the analytical expression for the period of oscillation in terms of $m$ and $k$? Write it below:
+    \vspace{1cm}
+    \[ T = 2\pi \sqrt{\frac{m}{k}}
+ \]
+ \vspace{0.5cm}
+    \item How does changing the mass $m$ or the spring constant $k$ affect the period? Explain briefly:
+
+    \begin{itemize}
+    
+    \item Increasing \( m \) makes the period longer \((T \propto \sqrt{m})\)
+
+    \item Increasing \( k \) makes the period shorter \((T \propto \frac{1}{\sqrt{k}})\)
+    \end{itemize}
+\end{enumerate}
+
+\subsection*{Tasks}
+\begin{enumerate}
+    \item Simulate SHO for different values of $k$ and $m$ using the code provided.
+    \item Plot position $x(t)$ and velocity $v(t)$ versus time.
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{Figure_1.png}
+    \caption{Position $x(t)$ and velocity $v(t)$ of the simple harmonic oscillator for varying values of $k$=10.0 and $m$=1.0.}
+    \label{fig:sho_simulation}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{Figure_2.png}
+        \caption{Position $x(t)$ and velocity $v(t)$ of the simple harmonic oscillator for varying values of $k$=20.0 and $m$=5.0.}
+        \label{fig:sho_simulation}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{Figure_3.png}
+        \caption{Position $x(t)$ and velocity $v(t)$ of the simple harmonic oscillator for varying values of $k$=30.0 and $m$=10.0.}
+        \label{fig:sho_simulation}
+    \end{figure}
+    \item Compare the period from your simulation to the analytical expression. Is there a match? 
+\end{enumerate}
+
+\section*{Part 2: Damped Oscillator}
+\subsection*{Theory}
+The damped oscillator equation is given by:
+\[ m \frac{d^2x}{dt^2} + b \frac{dx}{dt} + kx = 0 \]
+Define \( \beta = \frac{b}{m} \), where \( b \) is the damping coefficient and \( m \) is the mass. The equation can then be rewritten as:
+\[ \frac{d^2x}{dt^2} + \beta \frac{dx}{dt} + \frac{k}{m}x = 0 \]
+
+\subsection*{Questions}
+\begin{enumerate}
+    \item Write the equation in terms of two first-order differential equations. Show your work below:
+    \[ \text{Equations: } \]
+    \begin{equation*}
+    \begin{aligned}
+    \text{Our coupled ODEs: } 
+    \begin{cases}
+    \dfrac{dx}{dt} = v,\\[6pt]
+    \dfrac{dv}{dt} = -\beta v - \dfrac{k}{m} x
+    \end{cases}
+    \end{aligned}
+    \end{equation*}
+    
+    \vspace{0.5cm}
+    \item Define mathematically underdamped, overdamped, and critically damped systems. Provide the explanation below:
+    \begin{itemize}
+    \item \textbf{Underdamped:} \( \beta^2 < \frac{4k}{m} \). Oscillatory motion with exponential decay.
+    \item \textbf{Critically damped:} \( \beta^2 = \frac{4k}{m} \). Returns to equilibrium without oscillations in the shortest time.
+    \item \textbf{Overdamped:} \( \beta^2 > \frac{4k}{m} \). Returns to equilibrium more slowly than critically damped without oscillations.
+\end{itemize}
+\end{enumerate}
+
+\subsection*{Tasks}
+\begin{enumerate}
+    \item Simulate underdamped, overdamped, and critically damped cases by varying $b$.
+    \item Plot position $x(t)$ for each case.
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figure_4.png}
+    \caption{Position $x(t)$ of the damped harmonic oscillator for different damping coefficients $b$: Underdamped ($b=0.5$), Critically Damped ($b=2.0$), and Overdamped ($b=10.0$). The system parameters are $m=1.0 \, \text{kg}$ and $k=10.0 \, \text{N/m}$.}
+    \label{fig:damped_oscillator}
+\end{figure}
+    \item Describe how the amplitude decay and frequency change with different $b$ values. Write your observations below:
+    \begin{itemize}
+        \item As $b$ increases:
+        \begin{itemize}
+            \item For underdamped cases, the amplitude decays faster, and the frequency decreases slightly.
+            \item At critical damping, oscillations disappear entirely.
+            \item For overdamped cases, the system takes longer to return to equilibrium.
+        \end{itemize}
+    \end{itemize}
+\end{enumerate}
+
+\section*{Part 3: Driven Damped Oscillator}
+\subsection*{Theory}
+The driven damped oscillator equation is given by:
+\[ m \frac{d^2x}{dt^2} + b \frac{dx}{dt} + kx = F_0 \cos(\omega t) \]
+where $F_0$ is the driving force amplitude, and $\omega$ is the driving angular frequency.
+Define \( \beta = \frac{b}{m} \), and rewrite the equation as:
+\[ \frac{d^2x}{dt^2} + \beta \frac{dx}{dt} + \frac{k}{m}x = \frac{F_0}{m} \cos(\omega t) \]
+
+\subsection*{Questions}
+\begin{enumerate}
+    \item Write the equation in terms of two first-order differential equations. Show your work below:
+    \[
+    \text{Equations: }
+    \]
+    \begin{equation*}
+    \begin{aligned}
+    \text{Our coupled ODEs: }
+    \begin{cases}
+    \dfrac{dx}{dt} = v,\\[6pt]
+    \dfrac{dv}{dt} = \frac{F_0 \cos(\omega t)}{m} - \beta v - \frac{k}{m} x
+    \end{cases}
+    \end{aligned}
+    \end{equation*}
+    \vspace{0.5cm}
+    \item How does the driving frequency $\omega$ influence the system's response? Explain the concept of resonance:
+    \begin{itemize}
+        \item The system has a natural frequency $\omega_0 = \sqrt{\frac{k}{m}}$.
+        \item When $\omega$ approaches $\omega_0$, the amplitude of steady-state oscillations increases significantly (resonance).
+        \item For $\omega$ far from $\omega_0$, the steady-state amplitude decreases.
+    \end{itemize}
+    \vspace{0.5cm}
+    \item How does the damping coefficient $b$ affect the transient and steady-state behavior of the system?
+    \begin{itemize}
+        \item \textbf{Transient behavior:} Increasing $b$ causes transient oscillations to decay more quickly.
+        \item \textbf{Steady-state behavior:} Higher $b$ reduces the amplitude of the resonance peak and broadens the resonance curve.
+    \end{itemize}
+    \vspace{0.5cm}
+\end{enumerate}
+
+\subsection*{Tasks}
+\begin{enumerate}
+    \item Simulate the driven damped oscillator for different values of $\omega$ and $b$. Ensure that one case demonstrates resonance.
+    \item Plot position $x(t)$ for each case, highlighting both transient and steady-state behavior.
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Figure_5.png} % Replace with actual figure filename
+    \caption{Position \(x(t)\) of the driven damped harmonic oscillator for varying driving frequencies (\(\omega\)) with a fixed damping coefficient (\(b=1.0\)). The plot highlights the transient region (shaded in red) and the steady-state region (shaded in blue). Resonance occurs near the natural frequency (\(\omega_{\text{res}} = \sqrt{k/m}\)), leading to the maximum steady-state amplitude.}
+    \label{fig:varying_omega}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Figure_6.png} % Replace with actual figure filename
+    \caption{Position \(x(t)\) of the driven damped harmonic oscillator for varying damping coefficients (\(b\)) with a fixed driving frequency (\(\omega = \omega_{\text{res}}\)). The plot highlights the transient region (shaded in red) and the steady-state region (shaded in blue). Stronger damping results in faster decay of transient oscillations and lower steady-state amplitudes, even at resonance.}
+    \label{fig:varying_b}
+\end{figure}
+
+    \item Describe how the system transitions from transient to steady-state and how damping impacts this transition.
+
+   The driven damped harmonic oscillator undergoes two distinct phases in its motion: transient and steady-state behavior.
+
+\textbf{1. Transient Behavior:}
+\begin{itemize}
+    \item \textbf{Definition:} The transient phase is the initial phase of motion where the system's behavior is influenced by its initial conditions (e.g., initial position and velocity) and damping.
+    \item \textbf{Characteristics:}
+    \begin{itemize}
+        \item The motion is dominated by the natural frequency of the system, $\omega_{\text{natural}} = \sqrt{\frac{k}{m}}$.
+        \item The amplitude of oscillations decays exponentially due to the damping term $-\frac{b}{m} v$ in the governing equation.
+    \end{itemize}
+    \item \textbf{Duration:} The transient phase typically lasts for a few multiples of the time constant $\tau = \frac{2m}{b}$:
+    \begin{itemize}
+        \item For smaller damping coefficients ($b$), the transient phase persists longer, resulting in slower decay of oscillations.
+        \item For larger damping coefficients ($b$), the transient phase decays faster, leading to quicker transitions.
+    \end{itemize}
+\end{itemize}
+
+\textbf{2. Steady-State Behavior:}
+\begin{itemize}
+    \item \textbf{Definition:} After the transient effects decay, the system enters the steady-state phase, where the motion is entirely driven by the external driving force $F \cos(\omega t)$.
+    \item \textbf{Characteristics:}
+    \begin{itemize}
+        \item The oscillations occur at the driving frequency $\omega$, not the natural frequency of the system.
+        \item The steady-state amplitude depends on the relationship between $\omega$ (driving frequency) and $\omega_{\text{res}} = \sqrt{\frac{k}{m}}$ (resonance frequency), as well as the damping coefficient $b$.
+    \end{itemize}
+    \item \textbf{Resonance:} When the driving frequency $\omega$ approaches the resonance frequency $\omega_{\text{res}}$, the system experiences resonance:
+    \begin{itemize}
+        \item The steady-state amplitude reaches its maximum at resonance, especially for systems with weak damping.
+        \item Strong damping suppresses the resonance peak, reducing the amplitude even at $\omega \approx \omega_{\text{res}}$.
+    \end{itemize}
+\end{itemize}
+
+\textbf{3. Impact of Damping on the Transition:}
+Damping plays a crucial role in determining how quickly the system transitions from transient to steady-state and affects the amplitude at steady-state:
+\begin{itemize}
+    \item \textbf{Weak Damping ($b$ is small):}
+    \begin{itemize}
+        \item Transient oscillations persist for a longer time due to slower energy dissipation.
+        \item The system exhibits a sharp resonance peak, with large steady-state amplitude at $\omega_{\text{res}}$.
+    \end{itemize}
+    \item \textbf{Moderate Damping:}
+    \begin{itemize}
+        \item The transient phase decays more quickly, shortening the transition to steady-state.
+        \item Resonance is less pronounced, with moderate steady-state amplitude.
+    \end{itemize}
+    \item \textbf{Strong Damping ($b$ is large):}
+    \begin{itemize}
+        \item Transient oscillations decay very rapidly, and the system reaches steady-state quickly.
+        \item The steady-state amplitude is significantly reduced, even near resonance, as the system dissipates energy more effectively.
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Figure_7.png} % Replace with actual figure filename
+    \caption{Steady-state amplitude of the driven damped harmonic oscillator as a function of driving frequency (\(\omega\)) for a fixed damping coefficient (\(b=1.0\)). The plot demonstrates the resonance peak near the natural frequency (\(\omega_{\text{res}} = \sqrt{k/m}\)), where the amplitude is maximized. The amplitude decreases for driving frequencies far from resonance.}
+    \label{fig:amplitude_vs_omega}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Figure_8.png} % Replace with actual figure filename
+    \caption{Steady-state amplitude of the driven damped harmonic oscillator as a function of damping coefficient (\(b\)) with a fixed driving frequency near resonance (\(\omega = \omega_{\text{res}}\)). The plot shows that stronger damping suppresses the steady-state amplitude, reducing the resonance effect.}
+    \label{fig:amplitude_vs_b}
+\end{figure}
+    
+    \vspace{3cm}
+\end{enumerate}
+
+\end{document}
