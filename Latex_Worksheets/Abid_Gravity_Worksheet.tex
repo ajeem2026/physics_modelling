@@ -1,0 +1,133 @@
+\documentclass {article}
+\usepackage{amsmath, amssymb, graphicx, geometry,float}
+
+% GEOMETRY
+\geometry{top=1.5in, bottom=1.5in, left=1.5in, right=1.5in}
+
+\usepackage{floatrow}
+
+% Background
+\usepackage{background}
+\backgroundsetup{
+ scale=1,
+ color=black,
+ opacity=10,
+ angle=0,
+ contents={
+  \includegraphics[width=\paperwidth,height=\paperheight]{brand.pdf}
+ }
+}
+% Line Height
+\renewcommand{\baselinestretch}{1}
+% Par Skip and parindent
+\setlength{\parindent}{1pt}
+\setlength{\parskip}{0.5em}
+
+\title{Astrophysics Simulation Lab}
+\author{\textbf{Name:} \textit{Abid Jeem}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\section{N-Body Simulation (Galaxy Formation)}
+
+\subsection{Tasks}
+\begin{enumerate}
+    \item Describe how the interactions between bodies lead to the emergence of structure for a galaxy.
+
+    \paragraph{}
+The gravitational interactions among bodies play a crucial role in the emergence of structure within a galaxy. Initially, small density fluctuations create regions with slightly stronger gravitational attraction, which then pull in surrounding matter. This amplification of initial perturbations leads to the formation of localized clusters of mass. As these clusters grow, they interact with one another through gravitational forces, causing further merging and redistribution of material.
+
+\paragraph{}
+A key factor in shaping the galaxy is differential rotation. In a rotating system, the inner regions orbit faster than the outer regions. This variation in orbital velocity stretches and shears the initially clumped matter, gradually developing elongated patterns that resemble spiral arms. Additionally, energy and angular momentum exchanges occur due to gravitational encounters between bodies. These interactions lead to matter redistribution, with some bodies gaining energy and moving outward while others lose energy and migrate inward.
+
+\paragraph{}
+Over time, these dynamic processes contribute to the self-organization of the galaxy, where gravitational collapse, rotational shear, and merging events collectively shape its structure. The result is the formation of a coherent system with distinct features such as spiral arms, galactic bulges, and disk structures, reflecting the fundamental physics governing large-scale cosmic evolution.
+
+\end{enumerate}
+
+\newpage
+\section{Gravitational Lensing Basics}
+
+\subsection{Tasks}
+\begin{enumerate}
+    \item Describe how light is distorted near the black hole.
+    \paragraph{}
+Light traveling near a black hole experiences gravitational lensing due to the intense curvature of spacetime caused by the black hole's mass. According to Einstein's General Theory of Relativity, massive objects bend the paths of light rays, altering their trajectories as they pass through curved spacetime. 
+
+\paragraph{}
+In the vicinity of a black hole, photons follow curved geodesics instead of straight lines. As light approaches the Schwarzschild radius, the bending effect becomes more pronounced, leading to several observable phenomena. At a moderate distance, light is slightly deflected, creating an optical distortion similar to that of a gravitational lens. Closer to the black hole, photons can be significantly deflected or even captured entirely if they cross the event horizon. This results in the characteristic "photon sphere," where light can orbit the black hole before eventually escaping or falling in.
+
+\paragraph{}
+The given simulation represents this effect by computing a gravitational distortion function based on the radial distance from the black hole. The lensing effect is visualized using an exponential decay function, where light intensity is modified according to its proximity to the black hole. The animation further introduces variations in spacetime curvature, mimicking gravitational wave influences on the surrounding light paths. This visualization effectively demonstrates how extreme gravity warps light, leading to optical phenomena such as Einstein rings and gravitational lensing arcs, which are observed in astronomical images of black holes.
+
+\end{enumerate}
+\newpage
+\section{Binary Star System}
+
+\subsection{Tasks}
+The binary star system is simulated using Velocity Verlet integration, where two stars of different masses orbit around their common center of mass. The gravitational interaction dictates their motion, producing the characteristic elliptical orbits.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Binary_Star.png}
+    \caption{Orbital trajectories of the binary star system. The more massive star follows a smaller orbit, while the less massive star follows a larger trajectory around the center of mass.}
+    \label{fig:binary_star}
+\end{figure}
+
+\subsection{Analysis of Different Cases}
+\begin{enumerate}
+    \item \textbf{Observation of the Orbital Trajectories:}  
+    The two stars orbit their common center of mass in elliptical trajectories. Since their masses are unequal, the heavier star follows a smaller orbit, whereas the lighter star exhibits a larger trajectory. The motion of both stars remains synchronized around their barycenter.
+
+    \item \textbf{Effect of Changing Masses:}  
+    If the masses are altered, the center of mass shifts accordingly. A heavier star follows a smaller orbit, while a lighter star moves in a more extended trajectory. This is consistent with Newton's laws and the conservation of momentum, ensuring that their total momentum remains constant.
+
+    \item \textbf{Impact of a Much Smaller Mass for One Star:}  
+    When one of the stars has a much smaller mass compared to the other, the heavier star exhibits minimal movement, while the lighter star orbits around it in a pattern similar to a planet around a star. This mimics a star-planet system rather than a binary star system.
+\end{enumerate}
+
+
+\section{Gravitational Waves from Binary Merger}
+
+
+\subsection{Tasks}
+\begin{enumerate}
+      \item Run the gravitational wave simulation.
+    \item Modify the script to simulate a merger of neutron stars instead of black holes.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{Figure_1.png}  % Path to PNG file
+    \caption{Snapshot of gravitational waves from a neutron star merger simulation.}
+    \label{fig:Figure_1}
+\end{figure}
+
+\item The effect of changing the frequency and amplitude:
+    \begin{itemize}
+        \item Increasing the frequency led to a shorter wavelength of emitted gravitational waves, corresponding to a faster orbital decay before merger.
+        \item Higher amplitude indicated a more energetic merger, producing stronger and more detectable signals.
+        \item Lower frequencies resulted in longer inspiral phases, while lower amplitudes corresponded to less massive mergers with weaker signals.
+    \end{itemize}
+
+
+\end{enumerate}
+
+\section{Interstellar Travel and Doppler Shift}
+
+\subsection{Tasks}
+\begin{enumerate}
+
+    \item Observed that increasing velocity led to a greater shift in wavelength, confirming the relativistic Doppler effect.
+    \item The effect of velocity changes:
+    \begin{itemize}
+        \item As the observer moved toward the light source, the wavelengths were blueshifted (shifted toward shorter wavelengths), increasing their observed frequency.
+        \item As the observer moved away, the wavelengths were redshifted (shifted toward longer wavelengths), decreasing their observed frequency.
+        \item The greater the velocity, the more pronounced the shift, aligning with relativistic Doppler shift predictions.
+        \item At velocities approaching the speed of light, the shift became extreme, demonstrating time dilation effects.
+    \end{itemize}
+\end{enumerate}
+  
+
+\end{document}
+
