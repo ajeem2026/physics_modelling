@@ -1,0 +1,121 @@
+\documentclass {article}
+\usepackage{amsmath, amssymb, graphicx, geometry,float}
+
+% GEOMETRY
+\geometry{top=1.25in, bottom=1.25in, left=1.25in, right=1.25in}
+
+\usepackage{floatrow}
+
+% Background
+\usepackage{background}
+\backgroundsetup{
+ scale=1,
+ color=black,
+ opacity=10,
+ angle=0,
+ contents={
+  \includegraphics[width=\paperwidth,height=\paperheight]{brand.pdf}
+ }
+}
+% Line Height
+\renewcommand{\baselinestretch}{1}
+% Par Skip and parindent
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+
+\title{Population Dynamics Modeling: Dengue Infection in Bangladesh}
+\author{\textbf{Name:} \textit{Abid Jeem}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Model Selection}
+\textbf{Chosen Model: SIR Model for Dengue Infection in Bangladesh}
+
+\subsection*{Assumptions and Parameters}
+\begin{itemize}
+    \item The population is divided into Susceptible (S), Infected (I), and Recovered (R).
+    \item Dengue spreads through mosquito bites, with transmission dependent on contact rates.
+    \item Individuals recover from infection and gain temporary immunity.
+    \item Birth and death rates of the human population are negligible for the short-term model.
+    \item The mosquito population is assumed constant.
+\end{itemize}
+
+\subsection*{Mathematical Formulation}
+The SIR model is described by the following differential equations:
+\begin{equation}
+\frac{dS}{dt} = -\beta \frac{S I}{N}
+\end{equation}
+\begin{equation}
+\frac{dI}{dt} = \beta \frac{S I}{N} - \gamma I
+\end{equation}
+\begin{equation}
+\frac{dR}{dt} = \gamma I
+\end{equation}
+where:
+\begin{itemize}
+    \item $S$, $I$, and $R$ represent the susceptible, infected, and recovered populations.
+    \item $\beta$ is the transmission rate (probability of infection per contact).
+    \item $\gamma$ is the recovery rate.
+    \item $N$ is the total population size ($S + I + R$ is assumed constant).
+\end{itemize}
+The basic reproduction number, $R_0 = \frac{\beta}{\gamma}$, determines whether an outbreak spreads ($R_0 > 1$) or dies out ($R_0 < 1$).
+
+
+
+\section*{Python Implementation}
+
+\subsection*{Model Setup}
+The SIR model was simulated with the following parameters:
+\begin{itemize}
+    \item Transmission rate: $\beta = 0.5$
+    \item Recovery rate: $\gamma = \frac{1}{14}$
+    \item Total population: $N = 1,000,000$
+    \item Initial conditions: $S_0 = 999,000$, $I_0 = 1,000$, $R_0 = 0$
+\end{itemize}
+The simulation ran for 365 days to analyze outbreak progression.
+
+\subsection*{Enhanced Model Features}
+To refine the analysis, the model incorporated:
+\begin{itemize}
+    \item \textbf{Parameter Variability:} Simulating different $\beta$ values ($0.3, 0.5, 0.7$) to study outbreak severity.
+    \item \textbf{Peak Infection Analysis:} Identifying peak infection time and magnitude.
+    \item \textbf{Improved Visualization:} Labeling axes, adding legends, and annotating key points.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{sir_model_plot.png}
+    \caption{SIR Model Simulation for Dengue Infection in Bangladesh. The plot shows the evolution of infections for different transmission rates ($\beta$).}
+    \label{fig:sir_model}
+\end{figure}
+
+\section*{Analysis and Discussion}
+
+\subsection*{Key Observations}
+The SIR model highlights the rise and decline of infections, with peak severity influenced by transmission rate ($\beta$). A higher $\beta$ results in an earlier, more intense outbreak, whereas a lower $\gamma$ prolongs the infectious period.
+
+\subsection*{Impact of Parameter Variation}
+Varying $\beta$ illustrates different outbreak dynamics:
+\begin{itemize}
+    \item \textbf{Lower $\beta$ (0.3):} Slower spread, prolonged outbreak, lower peak.
+    \item \textbf{Baseline $\beta$ (0.5):} Moderate outbreak with a significant peak.
+    \item \textbf{Higher $\beta$ (0.7):} Rapid spread, sharp peak, faster resolution.
+\end{itemize}
+
+\subsection*{Equilibrium and Stability}
+The system trends toward a \textbf{disease-free equilibrium} as $I \to 0$, assuming no reinfection. No endemic equilibrium exists in this model.
+
+\subsection*{Limitations}
+While useful, the model has simplifying assumptions:
+\begin{itemize}
+    \item \textbf{Constant Population:} Ignores births, deaths, and migration.
+    \item \textbf{No Seasonality:} Dengue outbreaks depend on mosquito activity, which varies seasonally.
+    \item \textbf{Homogeneous Mixing:} Assumes equal interaction probability, ignoring geographic and social structures.
+    \item \textbf{No Vector Dynamics:} Mosquito population dynamics are not modeled.
+\end{itemize}
+
+\end{document}
+
