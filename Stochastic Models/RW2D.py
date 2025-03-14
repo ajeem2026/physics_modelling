@@ -13,6 +13,7 @@ from matplotlib.animation import FuncAnimation
 # Parameters
 n_steps = 1000            # Total number of steps
 update_interval = 10      # Update the animation every 10 steps
+bias_probability = [0.4, 0.1, 0.1, 0.4]  # Biased probabilities for [right, left, up, down]
 
 # Define possible moves: up, down, left, right
 moves = np.array([
@@ -22,8 +23,8 @@ moves = np.array([
     [0, -1]   # move down
 ])
 
-# Choose a random move for each step
-random_indices = np.random.choice(len(moves), size=n_steps)
+# Choose a random move for each step with biased probabilities
+random_indices = np.random.choice(len(moves), size=n_steps, p=bias_probability)
 steps = moves[random_indices]
 
 # Compute the cumulative sum to get the (x, y) coordinates of the random walk
@@ -37,7 +38,7 @@ ax.set_xlim(np.min(x) - 5, np.max(x) + 5)
 ax.set_ylim(np.min(y) - 5, np.max(y) + 5)
 ax.set_xlabel('X Position')
 ax.set_ylabel('Y Position')
-ax.set_title('2D Random Walk')
+ax.set_title('2D Random Walk with Bias (Higher Probability for Right and Left)')
 
 # Initialize the line and point objects for animation
 line, = ax.plot([], [], lw=2, color='blue')
